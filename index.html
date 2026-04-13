@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noel Thomas Robin | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-light: #f8fafc;
+            --text-light: #1e293b;
+            --bg-dark: #0f172a;
+            --text-dark: #f1f5f9;
+        }
+
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        .light {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated colorful background (kept lightweight; respects reduced motion) */
+        .bg-waves {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(900px 500px at 10% 10%, rgba(59, 130, 246, 0.18), transparent 55%),
+                radial-gradient(800px 500px at 90% 20%, rgba(139, 92, 246, 0.18), transparent 55%),
+                radial-gradient(900px 600px at 50% 95%, rgba(236, 72, 153, 0.16), transparent 55%);
+            animation: hueShift 14s linear infinite;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 9999px;
+            z-index: -1;
+            filter: blur(38px);
+            opacity: 0.38;
+            transform: translate3d(0, 0, 0);
+            animation: floaty 10s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 260px;
+            height: 260px;
+            top: -90px;
+            left: -80px;
+            background: radial-gradient(circle at 30% 30%, #60a5fa, rgba(96, 165, 250, 0) 65%);
+            animation-duration: 14s;
+        }
+
+        .orb-2 {
+            width: 320px;
+            height: 320px;
+            top: 120px;
+            right: -120px;
+            background: radial-gradient(circle at 30% 30%, #c084fc, rgba(192, 132, 252, 0) 65%);
+            animation-duration: 12s;
+            animation-delay: -2s;
+        }
+
+        .orb-3 {
+            width: 280px;
+            height: 280px;
+            bottom: -120px;
+            left: 10%;
+            background: radial-gradient(circle at 30% 30%, #fb7185, rgba(251, 113, 133, 0) 65%);
+            animation-duration: 16s;
+            animation-delay: -4s;
+        }
+
+        @keyframes floaty {
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            50% { transform: translate3d(0, -16px, 0) scale(1.02); }
+            100% { transform: translate3d(0, 0, 0) scale(1); }
+        }
+
+        @keyframes hueShift {
+            0% { filter: hue-rotate(0deg) saturate(1.05); }
+            50% { filter: hue-rotate(25deg) saturate(1.15); }
+            100% { filter: hue-rotate(0deg) saturate(1.05); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: revealIn 900ms ease forwards;
+        }
+
+        @keyframes revealIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gradient-underline {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            height: 3px;
+            border-radius: 9999px;
+            width: 140px;
+            transform-origin: left;
+            animation: underlinePulse 2.6s ease-in-out infinite;
+        }
+
+        @keyframes underlinePulse {
+            0%, 100% { transform: scaleX(0.88); opacity: 0.75; }
+            50% { transform: scaleX(1.12); opacity: 1; }
+        }
+
+        /* Button shimmer */
+        .contact-btn {
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        .contact-btn::after {
+            content: "";
+            position: absolute;
+            top: -60%;
+            left: -40%;
+            width: 60%;
+            height: 220%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+            transform: rotate(25deg);
+            opacity: 0;
+            transition: opacity 200ms ease;
+        }
+
+        .contact-btn:hover::after {
+            opacity: 1;
+            animation: sheen 900ms ease forwards;
+        }
+
+        @keyframes sheen {
+            from { transform: translateX(-40%) rotate(25deg); }
+            to { transform: translateX(230%) rotate(25deg); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .glass {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mystic-glow {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.35);
+        }
+
+        [contenteditable="true"] {
+            border: 1px dashed rgba(99, 102, 241, 0.7);
+            padding: 6px;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .bg-waves, .orb, .reveal, .gradient-underline {
+                animation: none !important;
+            }
+            .contact-btn:hover::after {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="light font-sans antialiased">
+
+    <div class="bg-waves" aria-hidden="true"></div>
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+    <div class="orb orb-3" aria-hidden="true"></div>
+
+    <div class="fixed top-5 right-5 z-50 flex gap-4 items-center">
+        <button onclick="toggleTheme()" class="contact-btn p-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:scale-110 transition-transform">
+            <span id="theme-icon">🌙</span>
+        </button>
+
+        <button onclick="promptAdmin()" class="glass p-3 rounded-full hover:scale-110 transition opacity-20 hover:opacity-100" aria-label="Admin Mode">
+            <i data-lucide="lock"></i>
+        </button>
+    </div>
+
+    <div id="admin-status" class="fixed bottom-6 left-6 z-50 hidden">
+        <div class="bg-indigo-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3">
+            <i data-lucide="settings" class="animate-spin"></i>
+            <div class="text-sm font-semibold">Admin Mode Active</div>
+            <button onclick="saveChanges()" class="ml-2 bg-white text-indigo-600 px-3 py-1 rounded font-bold text-xs hover:opacity-95 transition">
+                SAVE ALL
+            </button>
+        </div>
+    </div>
+
+    <header class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
+        <div class="reveal" style="animation-delay: 80ms;">
+            <div class="gradient-underline mx-auto mb-4"></div>
+        </div>
+        <div class="relative group cursor-pointer mb-8 reveal" style="animation-delay: 120ms;" onclick="triggerPhotoUpload()">
+            <img
+                id="profile-img"
+                src="https://via.placeholder.com/150"
+                alt="Profile"
+                class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-indigo-500/30 mystic-glow"
+            />
+            <div
+                id="photo-overlay"
+                class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition hidden"
+            >
+                <i data-lucide="camera" class="text-white" aria-hidden="true"></i>
+            </div>
+            <input type="file" id="photo-input" class="hidden" accept="image/*">
+        </div>
+
+        <h1 class="reveal text-6xl md:text-8xl font-extrabold mb-4" style="animation-delay: 140ms;">
+            Hi, I'm <span id="user-name" contenteditable="false" class="gradient-text">Allan Peter Giffy</span>
+        </h1>
+        <p id="user-tagline" class="reveal text-xl md:text-2xl opacity-80 max-w-2xl" style="animation-delay: 220ms;" contenteditable="false">
+            B.Tech Computer Science Student at St. Joseph's College of Engineering and Technology, Palai. 
+            Passionate about UI/UX design, performance optimization, and building meaningful software.
+        </p>
+        
+        <div class="mt-8 flex flex-wrap gap-3 justify-center">
+            <a
+                href="mailto:wallanpetergiffy@gmail.com"
+                id="link-email"
+                class="contact-btn px-6 py-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700 transition"
+                style="animation-delay: 280ms;"
+            >
+                Email
+            </a>
+            <a
+                href="https://github.com/allanpetergiffy"
+                id="link-github"
+                class="contact-btn px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold hover:opacity-95 transition"
+                style="animation-delay: 320ms;"
+            >
+                GitHub
+            </a>
+            <a
+                href="https://linkedin.com/in/allan-peter-giffy"
+                id="link-linkedin"
+                class="contact-btn px-6 py-3 rounded-full border-2 border-purple-500 text-purple-700 dark:text-purple-200 font-bold hover:bg-purple-500 hover:text-white transition"
+                style="animation-delay: 360ms;"
+            >
+                LinkedIn
+            </a>
+            <a
+                href="#"
+                id="link-resume"
+                class="contact-btn px-6 py-3 rounded-full border-2 border-pink-500 text-pink-700 dark:text-pink-200 font-bold hover:bg-pink-500 hover:text-white transition"
+                style="animation-delay: 400ms;"
+                aria-label="Resume link (add your PDF later)"
+                title="Resume link (add your PDF later)"
+            >
+                Resume
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-20">
+        
+        <section class="mb-20">
+            <h2 class="reveal text-4xl font-bold mb-8 flex items-center" style="animation-delay: 60ms;">
+                <span class="w-10 h-1 bg-blue-500 mr-4"></span> Education
+            </h2>
+            <div class="glass p-8 rounded-3xl reveal transition-transform hover:-translate-y-1" style="animation-delay: 110ms;">
+                <h3 class="text-2xl font-semibold text-blue-400">B.Tech in Computer Science (CSE)</h3>
+                <p class="text-lg mt-2">St. Joseph's College of Engineering and Technology, Palai</p>
+                <p class="opacity-60">Semester 2 (S2)</p>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="reveal text-4xl font-bold mb-8 flex items-center" style="animation-delay: 100ms;">
+                <span class="w-10 h-1 bg-indigo-500 mr-4"></span> About Me
+            </h2>
+            <div id="user-about" class="glass p-8 rounded-3xl reveal transition-transform hover:-translate-y-1" style="animation-delay: 140ms;" contenteditable="false">
+                I am a B.Tech Computer Science student who enjoys learning fundamentals and turning ideas into clean, working software.
+                I like designing user-friendly interfaces, practicing with problem sets, and improving step-by-step.
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="reveal text-4xl font-bold mb-8 flex items-center" style="animation-delay: 90ms;">
+                <span class="w-10 h-1 bg-purple-500 mr-4"></span> B.Tech Essentials
+            </h2>
+            <div class="glass p-8 rounded-3xl reveal transition-transform hover:-translate-y-1" style="animation-delay: 140ms;">
+                <p class="text-lg opacity-80 mb-6">
+                    Like most B.Tech students, I focus on strong fundamentals and practical practice through labs, assignments, and small builds.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="p-4 border border-gray-500/30 rounded-xl text-center hover:border-blue-500 transition">DSA Fundamentals</div>
+                    <div class="p-4 border border-gray-500/30 rounded-xl text-center hover:border-purple-500 transition">OOP Concepts</div>
+                    <div class="p-4 border border-gray-500/30 rounded-xl text-center hover:border-pink-500 transition">DBMS + SQL</div>
+                    <div class="p-4 border border-gray-500/30 rounded-xl text-center hover:border-green-500 transition">Operating Systems</div>
+                    <div class="p-4 border border-gray-500/30 rounded-xl text-center hover:border-indigo-500 transition">Computer Networks</div>
+                    <div class="p-4 border border-gray-500/30 rounded-xl text-center hover:border-orange-500 transition">Web Basics (HTML/CSS/JS)</div>
+                    <div class="p-4 border border-gray-500/30 rounded-xl text-center hover:border-sky-500 transition">Git & GitHub Workflow</div>
+                    <div class="p-4 border border-gray-500/30 rounded-xl text-center hover:border-emerald-500 transition">Lab Reports + Presentations</div>
+                </div>
+                <p class="opacity-70 mt-6 text-sm">
+                    Want to see specific class projects or repositories later? Add the links here when you’re ready.
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="reveal text-4xl font-bold mb-8 flex items-center" style="animation-delay: 120ms;">
+                <span class="w-10 h-1 bg-pink-500 mr-4"></span> Achievements & Level Up
+            </h2>
+            <div id="achievement-list" class="grid gap-6">
+                <div class="glass p-6 rounded-2xl flex justify-between items-center group reveal" style="animation-delay: 150ms;">
+                    <div>Basketball</div>
+                    <div class="text-indigo-500 font-mono text-sm">LEVEL 01</div>
+                </div>
+                <div class="glass p-6 rounded-2xl flex justify-between items-center group reveal" style="animation-delay: 180ms;">
+                    <div>DSA Fundamentals - Practice & Debugging</div>
+                    <div class="text-indigo-500 font-mono text-sm">LEVEL 02</div>
+                </div>
+            </div>
+            <button id="add-achievement" onclick="addAchievement()" class="mt-8 hidden border border-dashed border-indigo-500 w-full py-4 rounded-xl opacity-70 hover:opacity-100 transition">
+                + Add New Achievement
+            </button>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="reveal text-4xl font-bold mb-8 flex items-center" style="animation-delay: 120ms;">
+                <span class="w-10 h-1 bg-pink-500 mr-4"></span> Interests & Activities
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass p-6 rounded-3xl reveal transition-transform hover:-translate-y-1" style="animation-delay: 170ms;">
+                    <h3 class="text-xl font-bold mb-2">Basketball</h3>
+                    <p class="opacity-70 mb-4">
+                        Discipline, focus, and consistency. Training helps me stay calm under pressure and improve step-by-step.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-blue-500 transition">Forms</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-purple-500 transition">Sparring</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-pink-500 transition">Fitness</span>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-3xl reveal transition-transform hover:-translate-y-1" style="animation-delay: 210ms;">
+                    <h3 class="text-xl font-bold mb-2">UI/UX & Design</h3>
+                    <p class="opacity-70 mb-4">
+                        Building clean interfaces, improving usability, and turning ideas into attractive screens. (More design links can be added later.)
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-indigo-500 transition">Wireframes</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-sky-500 transition">Prototypes</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-emerald-500 transition">Typography</span>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-3xl reveal transition-transform hover:-translate-y-1" style="animation-delay: 250ms;">
+                    <h3 class="text-xl font-bold mb-2">Problem Solving</h3>
+                    <p class="opacity-70 mb-4">
+                        Learning to think clearly with algorithms and practicing problem sets. I enjoy debugging and optimizing for speed and clarity.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-orange-500 transition">Debugging</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-blue-500 transition">Optimization</span>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-3xl reveal transition-transform hover:-translate-y-1" style="animation-delay: 290ms;">
+                    <h3 class="text-xl font-bold mb-2">Campus & Community</h3>
+                    <p class="opacity-70 mb-4">
+                        Teamwork through college activities, presentations, and small collaborations. (Add your clubs/volunteering links later.)
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-purple-500 transition">Events</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-pink-500 transition">Workshops</span>
+                        <span class="text-xs px-3 py-1 rounded-full border border-gray-500/30 hover:border-green-500 transition">Hackathons</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-10 opacity-50 text-sm">
+        © 2026 Allan Peter Giffy | Built with style + fundamentals
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (body.classList.contains('light')) {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.innerText = '☀️';
+            } else {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.innerText = '🌙';
+            }
+        }
+
+        function promptAdmin() {
+            const pass = prompt("Enter Master Key:");
+            if (pass === "JMJ") {
+                enableAdmin();
+            } else {
+                alert("Access Denied.");
+            }
+        }
+
+        function enableAdmin() {
+            const adminStatus = document.getElementById('admin-status');
+            const addBtn = document.getElementById('add-achievement');
+            adminStatus.classList.remove('hidden');
+            addBtn.classList.remove('hidden');
+
+            // Show photo overlay (admin-only)
+            const photoOverlay = document.getElementById('photo-overlay');
+            photoOverlay.classList.remove('hidden');
+            photoOverlay.style.display = 'flex';
+
+            // Enable editing for main text blocks
+            document.getElementById('user-name').contentEditable = true;
+            document.getElementById('user-tagline').contentEditable = true;
+            document.getElementById('user-about').contentEditable = true;
+
+            // Update links (optional prompts)
+            const mail = prompt("Update Email:", document.getElementById('link-email').href);
+            if (mail) document.getElementById('link-email').href = mail;
+
+            const git = prompt("Update GitHub URL:", document.getElementById('link-github').href);
+            if (git) document.getElementById('link-github').href = git;
+
+            const li = prompt("Update LinkedIn URL:", document.getElementById('link-linkedin').href);
+            if (li) document.getElementById('link-linkedin').href = li;
+
+            const resume = prompt("Update Resume URL (PDF preferred):", document.getElementById('link-resume').href);
+            if (resume) document.getElementById('link-resume').href = resume;
+        }
+
+        function triggerPhotoUpload() {
+            const adminStatus = document.getElementById('admin-status');
+            // Only allow uploads when admin mode is active
+            if (!adminStatus.classList.contains('hidden')) {
+                document.getElementById('photo-input').click();
+            }
+        }
+
+        document.getElementById('photo-input').onchange = function (e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    document.getElementById('profile-img').src = reader.result;
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        };
+
+        function addAchievement() {
+            const list = document.getElementById('achievement-list');
+            const div = document.createElement('div');
+            div.className = "glass p-6 rounded-2xl flex justify-between items-center group";
+            div.innerHTML = `
+                <div contenteditable="true">New Achievement Title</div>
+                <div contenteditable="true" class="text-indigo-500 font-mono text-sm">LEVEL XX</div>
+            `;
+            list.appendChild(div);
+        }
+
+        function saveChanges() {
+            const data = {
+                name: document.getElementById('user-name').innerText,
+                tagline: document.getElementById('user-tagline').innerText,
+                about: document.getElementById('user-about').innerHTML,
+                photo: document.getElementById('profile-img').src,
+                achievements: document.getElementById('achievement-list').innerHTML
+            };
+
+            localStorage.setItem('noel_portfolio_data', JSON.stringify(data));
+            alert("Changes saved to local browser storage!");
+            location.reload();
+        }
+
+        // Load saved data + initialize icons
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+            const saved = localStorage.getItem('noel_portfolio_data');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    if (data.name) document.getElementById('user-name').innerText = data.name;
+                    if (data.tagline) document.getElementById('user-tagline').innerText = data.tagline;
+                    if (data.about) document.getElementById('user-about').innerHTML = data.about;
+                    if (data.photo) document.getElementById('profile-img').src = data.photo;
+                    if (data.achievements) document.getElementById('achievement-list').innerHTML = data.achievements;
+                } catch (err) {
+                    console.warn("Failed to load saved portfolio data:", err);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
